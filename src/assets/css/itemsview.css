@@ -1,0 +1,21 @@
+.items-view {
+    width: 90%;
+    background-color: beige;
+    /* cursor: not-allowed; */
+    min-height: 50px;
+}
+
+.items-view h5 {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px;
+    color: blue;
+}
+
+.items-view .del-btn {
+    color: red;
+    font-weight: bolder;
+    cursor: pointer;
+    margin-left: 20px;
+    font-size: large;
+}

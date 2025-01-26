@@ -1,0 +1,219 @@
+* {
+  /* width: 100%; */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.main-container {
+  width: 95%;
+  margin: 10px auto;
+}
+
+.main-container .inl-blk {
+  display: inline-block;
+}
+
+.main-container .bdr-1 {
+  border: 1px solid black;
+}
+
+.main-container .bdr-btm-1 {
+  border-bottom: 1px solid black;
+}
+
+.main-container .bdr-lft-1 {
+  border-left: 1px solid black;
+}
+
+.main-container .bdr-right-1 {
+  border-right: 1px solid black;
+}
+
+.main-container .pd-bt-10 {
+  padding-bottom: 10px;
+}
+
+.main-container .pd-bt-6 {
+  padding-bottom: 10px;
+}
+
+.main-container .pd-left-5 {
+  padding-left: 5px;
+}
+
+.main-container .pd-right-10 {
+  padding-right: 10px;
+}
+
+.main-container .txt-bold {
+  font-weight: bold;
+}
+
+.main-container .txt-alig-center {
+  text-align: center;
+}
+
+.main-container .txt-alig-right {
+  text-align: right;
+}
+
+.main-container .fnt-13 {
+  font-size: 13px;
+}
+
+.main-container .fnt-14 {
+  font-size: 14px;
+}
+
+.main-container .min-hgt-300 {
+  min-height: 350px;
+}
+
+.main-container .wd-3-per {
+  width: 3%;
+}
+
+.main-container .wd-8-per {
+  width: 8%;
+}
+
+.main-container .wd-10-per {
+  width: 10%;
+}
+
+.main-container .wd-12-per {
+  width: 12%;
+}
+
+.main-container .wd-15-per {
+  width: 15%;
+}
+
+.main-container .wd-43-per {
+  width: 43%;
+}
+
+.main-container .title {
+  width: 100%;
+}
+
+.main-container .title h1 {
+  color: red;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.main-container .doc-type {
+  width: 100%;
+}
+
+.main-container .doc-type p {
+  font-size: 14px;
+  text-align: right;
+}
+
+.main-container .comp-name-mob {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.main-container .comp-name-mob .mob {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.main-container .comp-name-mob .name {
+  width: 100%;
+}
+
+.main-container .comp-name-mob .name h1 {
+  text-align: center;
+  color: rgb(40, 0, 170);
+  font-weight: bolder;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: italic;
+}
+
+.main-container .trading-info {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.main-container .trading-info p {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.main-container .main-content .gt-xy-0 {
+  --bs-gutter-x: 0;
+  --bs-gutter-y: 0;
+}
+
+.main-container .main-content .gt-y-10 {
+  --bs-gutter-y: 10px;
+}
+
+.main-container .main-content .txt-lbl {
+  font-size: 13px;
+}
+
+.main-container .main-content .txt-val {
+  font-size: 14px;
+}
+
+.main-container .items {
+  min-height: 300px;
+  border: 1px solid #000;
+  border-top: 0;
+  position: relative;
+}
+
+.main-container .divider {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background-color: #000;
+}
+
+.main-container .items .bill-col-titles {
+}
+
+.main-container .items .bill-col-items {
+}
+
+.main-container .err-disclmr {
+  text-align: right;
+  font-size: 11px;
+  font-family: serif;
+  padding-right: 4px;
+}
+
+.main-container .gst-styl {
+  width: 44%;
+  text-align: right;
+  font-size: 14px;
+}
+
+.main-container .total-amt {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-top: 1px solid #000;
+  text-align: center;
+}
+
+.main-container .gen-btn {
+  width: 100%;
+}
+
+.main-container .gen-btn button {
+  width: 100px;
+  margin: 0 auto;
+  display: block;
+}
