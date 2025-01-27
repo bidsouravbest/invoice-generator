@@ -58,11 +58,7 @@ export const BUYER_COMPANIES = [
   },
 ];
 
-export const docType = {
-  orig: "(Original)",
-  dup: "(Duplicate)",
-  trip: "(Triplicate)",
-};
+export const docTypes = ["Original", "Duplicate", "Triplicate"];
 
 export const invoiceNoInitial = "IC/";
 export const finacialYears = [
@@ -77,7 +73,7 @@ export const toINR = (amount, decimal) => {
       style: "currency",
       currency: "INR",
     })
-    .replace("₹", "\u20B9");
+    .replace("₹", "Rs ");
 };
 
 export const rectifyInvNo = (commonItems, finYear) => {
@@ -89,12 +85,18 @@ export const rectifyInvNo = (commonItems, finYear) => {
 };
 
 export const getDate = (date) => {
-  return (
-    new Date(date).toISOString().slice(0, 10).split("-").reverse().join("/")
-  );
+  return new Date(date)
+    .toISOString()
+    .slice(0, 10)
+    .split("-")
+    .reverse()
+    .join("/");
 };
 
+export const formatDocType = (type) => {
+  return `(${type})`;
+};
 
-export const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
+export const onFinishFailed = (error) => {
+  console.log("Failed:", error);
 };
