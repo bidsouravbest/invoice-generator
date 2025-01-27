@@ -65,8 +65,10 @@ export const docType = {
 };
 
 export const invoiceNoInitial = "IC/";
-export const currentFY = "25-26";
-export const previousFY = "24-25";
+export const finacialYears = [
+  { label: "2024-25", value: "24-25" },
+  { label: "2025-26", value: "25-26" },
+];
 
 export const toINR = (amount, decimal) => {
   return amount
@@ -76,4 +78,23 @@ export const toINR = (amount, decimal) => {
       currency: "INR",
     })
     .replace("₹", "\u20B9");
+};
+
+export const rectifyInvNo = (commonItems, finYear) => {
+  if (commonItems < 10) {
+    return invoiceNoInitial + finYear + "/" + "0" + commonItems;
+  }
+
+  return invoiceNoInitial + finYear + "/" + commonItems;
+};
+
+export const getDate = (date) => {
+  return (
+    new Date(date).toISOString().slice(0, 10).split("-").reverse().join("/")
+  );
+};
+
+
+export const onFinishFailed = (errorInfo) => {
+  console.log("Failed:", errorInfo);
 };

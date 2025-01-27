@@ -1,5 +1,4 @@
 * {
-  /* width: 100%; */
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -208,12 +207,18 @@
   text-align: center;
 }
 
-.main-container .gen-btn {
+.gen-btn {
   width: 100%;
+  margin: 30px 0;
 }
 
-.main-container .gen-btn button {
-  width: 100px;
+.gen-btn button {
+  width: 90%;
   margin: 0 auto;
   display: block;
+  text-align: center;
+  background-color: blueviolet;
+  color: #FFF;
+  padding: 20px unset;
+  border-radius: 0;
 }

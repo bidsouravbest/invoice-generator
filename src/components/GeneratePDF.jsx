@@ -4,14 +4,16 @@ import "../assets/css/generatepdf.css";
 import {
   docHeading,
   docType,
+  getDate,
   invoiceNoInitial,
+  rectifyInvNo,
   SELLER_DETAILS,
   toINR,
   toWords,
 } from "../utils/utils";
 import { Button } from "antd";
 
-const GeneratePDF = ({ invoiceNo, items, company }) => {
+const GeneratePDF = ({ commonItems, items, company }) => {
   const gstMargin = items?.length > 5 ? "25px" : "60px";
 
   let amount = 0;
@@ -135,7 +137,7 @@ const GeneratePDF = ({ invoiceNo, items, company }) => {
                       Invoice No.
                     </div>
                     <div className="col-7 bdr-btm-1">
-                      {invoiceNoInitial}25-26/001
+                      {commonItems?.invno}
                     </div>
                   </div>
                 </div>
@@ -145,16 +147,7 @@ const GeneratePDF = ({ invoiceNo, items, company }) => {
                     <div className="col-5 bdr-btm-1 pd-bt-10 fnt-13">
                       Dated:
                     </div>
-                    <div className="col-7 bdr-btm-1">
-                      {/* <Space direction="vertical">
-                        <DatePicker onChange={onChange} />
-                        <DatePicker onChange={onChange} picker="week" />
-                        <DatePicker onChange={onChange} picker="month" />
-                        <DatePicker onChange={onChange} picker="quarter" />
-                        <DatePicker onChange={onChange} picker="year" />
-                      </Space> */}
-                      {"24-Feb-2026"}
-                    </div>
+                    <div className="col-7 bdr-btm-1">{commonItems?.date}</div>
                   </div>
                 </div>
 
@@ -164,7 +157,7 @@ const GeneratePDF = ({ invoiceNo, items, company }) => {
                       Truck No.-
                     </div>
                     <div className="col-7 bdr-btm-1">
-                      {"wb-37ac-5545"?.toUpperCase()}
+                      {commonItems?.truck}
                     </div>
                   </div>
                 </div>
@@ -183,7 +176,7 @@ const GeneratePDF = ({ invoiceNo, items, company }) => {
                     <div className="col-5 pd-bt-10 fnt-13">
                       Dispatched Through:-
                     </div>
-                    <div className="col-7"></div>
+                    <div className="col-7">{commonItems?.dispatch}</div>
                   </div>
                 </div>
 
