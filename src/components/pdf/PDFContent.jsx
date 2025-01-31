@@ -12,12 +12,13 @@ const PDFContent = ({ company, commonItems, items }) => {
 
   const gstMargin = items?.length > 5 ? "25px" : "60px";
 
-  let amount = 0;
-  let cgst = 0;
-  let sgst = 0;
-  let totalAmount = 0;
-
   return docTypes.map((docType) => {
+    let amount = 0;
+    let cgst = 0;
+    let sgst = 0;
+    let totalAmount = 0;
+
+
     return (
       <section className="main-container" id={"page-" + docType?.toLowerCase()}>
         <section className="title">
@@ -46,7 +47,7 @@ const PDFContent = ({ company, commonItems, items }) => {
             <div className="col-5 bdr-1">
               <div className="row gt-xy-0 bdr-btm-1">
                 <div className="col-3 txt-lbl pd-bt-10">Buyer's Name –</div>
-                <div className="col-9 txt-val txt-bold bdr-lft-1">
+                <div className="col-9 txt-val txt-bold bdr-lft-1" style={{fontStretch: "ultra-expanded"}}>
                   {company?.label}
                 </div>
               </div>
