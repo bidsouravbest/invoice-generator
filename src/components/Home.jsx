@@ -17,6 +17,8 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [commonItems, setCommonItems] = useState(null);
 
+  const [isRent, setIsRent] = useState(false);
+
   const onChange = (value, option) => {
     setCompany(option);
   };
@@ -49,6 +51,8 @@ const Home = () => {
           <CommonItemsForm
             commonItems={commonItems}
             setCommonItems={setCommonItems}
+            isRent={isRent}
+            setIsRent={setIsRent}
           />
 
           {items?.length > 0 && (
@@ -61,8 +65,7 @@ const Home = () => {
             <AddItemForm
               items={items}
               setItems={setItems}
-              commonItems={commonItems}
-              setCommonItems={setCommonItems}
+              isRent={isRent}
             />
           )}
         </section>

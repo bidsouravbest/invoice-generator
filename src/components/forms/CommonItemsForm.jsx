@@ -1,7 +1,6 @@
-import { Button, DatePicker, Form, Input, Select } from "antd";
+import { Button, Checkbox, DatePicker, Form, Input, Select } from "antd";
 import React, { useContext } from "react";
 import {
-  finacialYears,
   getDate,
   onFinishFailed,
   rectifyInvNo,
@@ -9,11 +8,20 @@ import {
 } from "../../utils/utils";
 import { ConfigContext } from "../../context/ConfigContext";
 
-const CommonItemsForm = ({ commonItems, setCommonItems }) => {
+const CommonItemsForm = ({
+  commonItems,
+  setCommonItems,
+  isRent,
+  setIsRent,
+}) => {
   const config = useContext(ConfigContext);
 
   const finacialYears = config?.finacialYears;
   const invoiceNoInitial = config?.invoiceNoInitial;
+
+  const handleRentCheck = (e) => {
+    setIsRent(e?.target?.checked);
+  };
 
   const handleCommonItemsForm = (values) => {
     const commonItem = {
@@ -84,17 +92,21 @@ const CommonItemsForm = ({ commonItems, setCommonItems }) => {
           />
         </Form.Item>
 
+        <Form.Item>
+          <Checkbox onChange={handleRentCheck}>Rent</Checkbox>
+        </Form.Item>
+
         <Form.Item
           label="Truck Number:"
           name="truck"
           rules={[
             {
-              required: true,
+              required: !isRent,
               message: "Enter Truck Number",
             },
           ]}
         >
-          <Input />
+          <Input disabled={isRent} />
         </Form.Item>
 
         <Form.Item label="Dispatched Through:" name="dispatch">

@@ -3,7 +3,7 @@ import { Button, Form, Input, InputNumber, Checkbox } from "antd";
 import { onFinishFailed, rentHSN, rentPer, wd100 } from "../../utils/utils";
 import { ConfigContext } from "../../context/ConfigContext";
 
-const AddItemForm = ({ items, setItems, commonItems }) => {
+const AddItemForm = ({ items, setItems, isRent }) => {
   const config = useContext(ConfigContext);
 
   const rentHSN = config?.rentHSN;
@@ -12,11 +12,7 @@ const AddItemForm = ({ items, setItems, commonItems }) => {
   const [itemsForm] = Form.useForm();
 
   const [uniqueID, setUniqueID] = useState(1);
-  const [isRent, setIsRent] = useState(false);
-
-  const handleRentCheck = (e) => {
-    setIsRent(e?.target?.checked);
-  };
+  
 
   const addItem = (values) => {
     const item = {
@@ -55,10 +51,6 @@ const AddItemForm = ({ items, setItems, commonItems }) => {
           ]}
         >
           <Input />
-        </Form.Item>
-
-        <Form.Item>
-          <Checkbox onChange={handleRentCheck}>Rent</Checkbox>
         </Form.Item>
 
         <Form.Item
