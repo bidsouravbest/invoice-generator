@@ -22,8 +22,8 @@ const GeneratePDF = ({ commonItems, items, company }) => {
       margin: [40, 60, 40, 60],
       x: 0,
       y: 0,
-      width: 700, // adjust width based on your content
-      windowWidth: 1100, // adjust window width for better rendering
+      width: 720, // adjust width based on your content
+      windowWidth: 1120, // adjust window width for better rendering
     });
   };
 
@@ -40,7 +40,6 @@ const GeneratePDF = ({ commonItems, items, company }) => {
           company={company}
           commonItems={commonItems}
           items={items}
-          pageID={"test"}
         />
       </article>
     </div>

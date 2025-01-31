@@ -1,16 +1,27 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
-import React from "react";
+import React, { useContext } from "react";
 import {
   finacialYears,
   getDate,
   onFinishFailed,
   rectifyInvNo,
+  wd100,
 } from "../../utils/utils";
+import { ConfigContext } from "../../context/ConfigContext";
 
 const CommonItemsForm = ({ commonItems, setCommonItems }) => {
+  const config = useContext(ConfigContext);
+
+  const finacialYears = config?.finacialYears;
+  const invoiceNoInitial = config?.invoiceNoInitial;
+
   const handleCommonItemsForm = (values) => {
     const commonItem = {
-      invno: rectifyInvNo(values?.invoiceno, values?.fyear?.value),
+      invno: rectifyInvNo(
+        values?.invoiceno,
+        values?.fyear?.value,
+        invoiceNoInitial
+      ),
       fyear: values?.fyear?.value,
       truck: values?.truck?.toUpperCase(),
       date: getDate(values?.date),
@@ -51,7 +62,7 @@ const CommonItemsForm = ({ commonItems, setCommonItems }) => {
             },
           ]}
         >
-          <DatePicker />
+          <DatePicker style={wd100} />
         </Form.Item>
 
         <Form.Item

@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import GeneratePDF from "./GeneratePDF";
-import { BUYER_COMPANIES } from "../utils/utils";
 import { Select } from "antd";
 import AddItemForm from "./forms/AddItemForm";
-import Header from "./Header";
 import "../assets/css/home.css";
 import CommonItemsForm from "./forms/CommonItemsForm";
 import ItemsView from "./ItemsView";
+import { ConfigContext } from "../context/ConfigContext";
 
 const Home = () => {
-  const [company, setCompany] = useState(BUYER_COMPANIES[0]);
+  const config = useContext(ConfigContext);
+
+  const buyerCompanies = config?.BUYER_COMPANIES;
+
+  const [company, setCompany] = useState(null);
 
   const [items, setItems] = useState([]);
   const [commonItems, setCommonItems] = useState(null);
@@ -34,10 +37,10 @@ const Home = () => {
             showSearch
             labelInValue
             placeholder="Select Buyer Company"
-            defaultValue={BUYER_COMPANIES[0]}
+            // defaultValue={buyerCompanies ? buyerCompanies[0] : null}
             optionFilterProp="label"
             onChange={onChange}
-            options={BUYER_COMPANIES}
+            options={buyerCompanies}
             className="comp-select"
           />
         </section>
@@ -65,7 +68,7 @@ const Home = () => {
         </section>
       </div>
 
-      {company && commonItems && (
+      {commonItems && (
         <GeneratePDF
           commonItems={commonItems}
           items={items}

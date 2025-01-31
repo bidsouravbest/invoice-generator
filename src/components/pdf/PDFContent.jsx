@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../assets/css/generatepdf.css";
-import {
-  docHeading,
-  docTypes,
-  formatDocType,
-  SELLER_DETAILS,
-  toINR,
-  toWords,
-} from "../../utils/utils";
+import { formatDocType, toINR, toWords } from "../../utils/utils";
+import { ConfigContext } from "../../context/ConfigContext";
 
-const PDFContent = ({ company, commonItems, items, pageID }) => {
+const PDFContent = ({ company, commonItems, items }) => {
+  const config = useContext(ConfigContext);
+
+  const sellerDetails = config?.SELLER_DETAILS;
+  const docHeading = config?.docHeading;
+  const docTypes = config?.docTypes;
+
   const gstMargin = items?.length > 5 ? "25px" : "60px";
 
   let amount = 0;
@@ -30,15 +30,15 @@ const PDFContent = ({ company, commonItems, items, pageID }) => {
 
         <section className="comp-name-mob">
           <div className="mob">
-            <p>Mob. No: {SELLER_DETAILS?.mob}</p>
+            <p>Mob. No: {sellerDetails?.mob}</p>
           </div>
           <div className="name">
-            <h1>{SELLER_DETAILS?.label}</h1>
+            <h1>{sellerDetails?.label}</h1>
           </div>
         </section>
 
         <section className="trading-info">
-          <p>{SELLER_DETAILS?.tradingInfo}</p>
+          <p>{sellerDetails?.tradingInfo}</p>
         </section>
 
         <section className="main-content">
@@ -83,18 +83,18 @@ const PDFContent = ({ company, commonItems, items, pageID }) => {
               <div className="row gt-xy-0 bdr-btm-1">
                 <div className="col-3 txt-lbl">Seller's Office Address –</div>
                 <div className="col-9 txt-val bdr-lft-1">
-                  {SELLER_DETAILS?.addressL1}
+                  {sellerDetails?.addressL1}
                 </div>
                 <div className="col-3"></div>
                 <div className="col-9 txt-val bdr-lft-1">
-                  {SELLER_DETAILS?.addressL2}
+                  {sellerDetails?.addressL2}
                 </div>
               </div>
 
               <div className="row gt-xy-0 bdr-btm-1">
                 <div className="col-3 txt-lbl pd-bt-10">GSTIN/UIN:</div>
                 <div className="col-9 txt-val bdr-lft-1 txt-bold">
-                  {SELLER_DETAILS?.gst}
+                  {sellerDetails?.gst}
                 </div>
               </div>
 
@@ -171,7 +171,10 @@ const PDFContent = ({ company, commonItems, items, pageID }) => {
             {/* Bill Items */}
             <div className="bill-col-items">
               {items?.map((item, index) => {
-                const currentAmt = item?.quantity * item?.rate;
+                const currentAmt =
+                  item?.quantity !== 0
+                    ? item?.quantity * item?.rate
+                    : item?.rate;
 
                 amount += currentAmt;
                 cgst += currentAmt * 0.09;
@@ -193,7 +196,9 @@ const PDFContent = ({ company, commonItems, items, pageID }) => {
                       {item?.hsn}
                     </div>
                     <div className="wd-12-per fnt-13 txt-alig-center">
-                      {item?.quantity?.toLocaleString("en-IN")}
+                      {item?.quantity !== 0
+                        ? item?.quantity?.toLocaleString("en-IN")
+                        : "NIL"}
                     </div>
                     <div className="wd-10-per fnt-13 txt-alig-center">
                       {toINR(item?.rate, 3)}
@@ -202,7 +207,9 @@ const PDFContent = ({ company, commonItems, items, pageID }) => {
                       {item?.per}
                     </div>
                     <div className="wd-15-per fnt-13 txt-alig-center">
-                      {toINR(item?.quantity * item?.rate)}
+                      {item?.quantity !== 0
+                        ? toINR(item?.quantity * item?.rate)
+                        : toINR(item?.rate)}
                     </div>
                   </div>
                 );

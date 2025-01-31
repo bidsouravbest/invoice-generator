@@ -1,21 +1,30 @@
-import React, { useState } from "react";
-import { Button, Form, Input, InputNumber, DatePicker } from "antd";
-import ItemsView from "../ItemsView";
-import { onFinishFailed } from "../../utils/utils";
-import CommonItemsForm from "./CommonItemsForm";
+import React, { useContext, useState } from "react";
+import { Button, Form, Input, InputNumber, Checkbox } from "antd";
+import { onFinishFailed, rentHSN, rentPer, wd100 } from "../../utils/utils";
+import { ConfigContext } from "../../context/ConfigContext";
 
 const AddItemForm = ({ items, setItems, commonItems }) => {
+  const config = useContext(ConfigContext);
+
+  const rentHSN = config?.rentHSN;
+  const rentPer = config?.rentPer;
+
   const [itemsForm] = Form.useForm();
 
   const [uniqueID, setUniqueID] = useState(1);
+  const [isRent, setIsRent] = useState(false);
+
+  const handleRentCheck = (e) => {
+    setIsRent(e?.target?.checked);
+  };
 
   const addItem = (values) => {
     const item = {
       desc: values?.desc.toUpperCase(),
-      hsn: values?.hsn,
+      hsn: isRent ? rentHSN : values?.hsn,
       rate: values?.rate,
-      quantity: values?.quantity,
-      per: values?.per?.toUpperCase(),
+      quantity: values?.quantity || 0,
+      per: isRent ? rentPer : values?.per?.toUpperCase(),
       uniqueID: uniqueID,
     };
 
@@ -48,17 +57,21 @@ const AddItemForm = ({ items, setItems, commonItems }) => {
           <Input />
         </Form.Item>
 
+        <Form.Item>
+          <Checkbox onChange={handleRentCheck}>Rent</Checkbox>
+        </Form.Item>
+
         <Form.Item
           label="HSN Code"
           name="hsn"
           rules={[
             {
-              required: true,
+              required: !isRent,
               message: "HSN Code!",
             },
           ]}
         >
-          <Input />
+          <Input disabled={isRent} placeholder={isRent ? "9972" : ""} />
         </Form.Item>
 
         <Form.Item
@@ -66,12 +79,12 @@ const AddItemForm = ({ items, setItems, commonItems }) => {
           name="quantity"
           rules={[
             {
-              required: true,
+              required: !isRent,
               message: "Please input Quantity!",
             },
           ]}
         >
-          <InputNumber style={{ width: "100%" }} />
+          <InputNumber disabled={isRent} style={wd100} />
         </Form.Item>
         <Form.Item
           label="Rate"
@@ -90,12 +103,12 @@ const AddItemForm = ({ items, setItems, commonItems }) => {
           name="per"
           rules={[
             {
-              required: true,
+              required: !isRent,
               message: "Please input per!",
             },
           ]}
         >
-          <Input />
+          <Input disabled={isRent} placeholder={isRent ? "month" : ""} />
         </Form.Item>
 
         <Form.Item label={null}>

@@ -7,10 +7,10 @@ const ItemsView = ({ items, handleDeleteItem }) => {
       <h5>Items List</h5>
       <div>
         <ol>
-          {items?.map((item, index) => {
+          {items?.map((item) => {
             return (
               <>
-                <li>
+                <li key={item?.uniqueID}>
                   {`${item?.desc}, ${item?.quantity} x @ ${item?.rate} / ${item?.per} (HSN-${item?.hsn})`}
                   <span
                     className="del-btn"

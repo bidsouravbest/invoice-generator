@@ -6,7 +6,11 @@
 
 .main-container {
   width: 95%;
-  margin: 10px auto;
+  margin: 10px auto 85px auto;
+}
+
+.main-container:last-child {
+  margin-bottom: 0;
 }
 
 .main-container .inl-blk {
@@ -133,7 +137,6 @@
   text-align: center;
   color: rgb(40, 0, 170);
   font-weight: bolder;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-style: italic;
 }
 
@@ -180,17 +183,12 @@
   background-color: #000;
 }
 
-.main-container .items .bill-col-titles {
-}
-
-.main-container .items .bill-col-items {
-}
-
 .main-container .err-disclmr {
   text-align: right;
   font-size: 11px;
   font-family: serif;
   padding-right: 4px;
+  margin-top: 10px;
 }
 
 .main-container .gst-styl {
@@ -218,7 +216,7 @@
   display: block;
   text-align: center;
   background-color: blueviolet;
-  color: #FFF;
+  color: #fff;
   padding: 20px unset;
   border-radius: 0;
 }
