@@ -1,18 +1,19 @@
-import React, { useContext, useState } from "react";
-import { Button, Form, Input, InputNumber, Checkbox } from "antd";
-import { onFinishFailed, rentHSN, rentPer, wd100 } from "../../utils/utils";
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Form, Input, InputNumber } from "antd";
+import { onFinishFailed } from "../../utils/utils";
 import { ConfigContext } from "../../context/ConfigContext";
+import "../../assets/css/common.css";
 
-const AddItemForm = ({ items, setItems, isRent }) => {
+const AddItemForm = ({ otherItems, setOtherItems, isRent, setSection, section }) => {
   const config = useContext(ConfigContext);
 
   const rentHSN = config?.rentHSN;
   const rentPer = config?.rentPer;
+  const wd100 = config?.wd100;
 
-  const [itemsForm] = Form.useForm();
+  const [oiForm] = Form.useForm();
 
   const [uniqueID, setUniqueID] = useState(1);
-  
 
   const addItem = (values) => {
     const item = {
@@ -26,19 +27,23 @@ const AddItemForm = ({ items, setItems, isRent }) => {
 
     setUniqueID(uniqueID + 1);
 
-    items ? setItems([...items, item]) : setItems([item]);
+    otherItems ? setOtherItems([...otherItems, item]) : setOtherItems([item]);
 
-    itemsForm.resetFields();
+    oiForm.resetFields();
+  };
+
+  const handleBackBtn = () => {
+    setSection(1);
   };
 
   return (
     <div>
       <Form
-        form={itemsForm}
         name="basic"
         onFinish={addItem}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        form={oiForm}
       >
         <Form.Item
           label="Item Name"
@@ -103,11 +108,17 @@ const AddItemForm = ({ items, setItems, isRent }) => {
           <Input disabled={isRent} placeholder={isRent ? "month" : ""} />
         </Form.Item>
 
-        <Form.Item label={null}>
-          <Button type="primary" htmlType="submit">
-            Add Item
-          </Button>
-        </Form.Item>
+        <div className="add-itms-btns">
+          <Form.Item label={null}>
+            <Button onClick={handleBackBtn}>Back</Button>
+          </Form.Item>
+
+          <Form.Item label={null}>
+            <Button type="primary" htmlType="submit">
+              Add Item
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </div>
   );

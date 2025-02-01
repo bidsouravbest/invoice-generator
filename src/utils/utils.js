@@ -10,7 +10,6 @@ export const toWords = new ToWords({
     ignoreZeroCurrency: false,
     doNotAddOnly: false,
     currencyOptions: {
-      // can be used to override defaults for the selected locale
       name: "Rupee",
       plural: "Rupees",
       symbol: "₹",
@@ -48,6 +47,16 @@ export const getDate = (date) => {
     .split("-")
     .reverse()
     .join("/");
+};
+
+export const getFinancialYear = (date) => {
+  const fullYear = Number(String(date.getFullYear())?.slice(-2)); // Last 2 digits only
+
+  if (date.getMonth() + 1 <= 3) {
+    return fullYear - 1 + "-" + fullYear;
+  }
+
+  return fullYear + "-" + (fullYear + 1);
 };
 
 export const formatDocType = (type) => {

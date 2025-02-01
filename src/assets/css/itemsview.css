@@ -1,7 +1,17 @@
+.item-det {
+  margin: 50px 0;
+}
+
 .items-view {
-  width: 90%;
+  width: 100%;
   background-color: beige;
   min-height: 50px;
+  border-radius: 5px;
+  padding: 10px 0 20px;
+
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(204, 175, 181, 1);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(204, 175, 181, 1);
+  box-shadow: 10px 10px 5px 0px rgba(204, 175, 181, 1);
 }
 
 .items-view li {
@@ -9,10 +19,12 @@
 }
 
 .items-view h5 {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: bolder;
   padding: 10px;
-  color: blue;
+  color: #0808d6ba;
+  font-family: monospace;
+  text-decoration: underline;
 }
 
 .items-view .del-btn {

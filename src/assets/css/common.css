@@ -1,0 +1,6 @@
+.add-itms-btns {
+    display: flex;
+}
+.add-itms-btns button:first-child {
+    margin-right: 30px;
+}

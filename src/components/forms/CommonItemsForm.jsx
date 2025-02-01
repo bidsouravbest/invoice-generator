@@ -1,11 +1,6 @@
-import { Button, Checkbox, DatePicker, Form, Input, Select } from "antd";
-import React, { useContext } from "react";
-import {
-  getDate,
-  onFinishFailed,
-  rectifyInvNo,
-  wd100,
-} from "../../utils/utils";
+import { Button, Checkbox, DatePicker, Form, Input, InputNumber } from "antd";
+import React, { useContext, useEffect } from "react";
+import { onFinishFailed } from "../../utils/utils";
 import { ConfigContext } from "../../context/ConfigContext";
 
 const CommonItemsForm = ({
@@ -13,31 +8,47 @@ const CommonItemsForm = ({
   setCommonItems,
   isRent,
   setIsRent,
+  setSection,
+  section,
 }) => {
   const config = useContext(ConfigContext);
 
-  const finacialYears = config?.finacialYears;
-  const invoiceNoInitial = config?.invoiceNoInitial;
+  const wd100 = config?.wd100;
+
+  const [ciForm] = Form.useForm();
 
   const handleRentCheck = (e) => {
     setIsRent(e?.target?.checked);
   };
 
+  const setFormValuesCI = () => {
+    ciForm.setFieldsValue({
+      invoiceno: commonItems?.invno || 0,
+      date: commonItems?.date || new Date(),
+      truck: commonItems?.truck || "",
+      dispatch: commonItems?.dispatch || "",
+    });
+  };
+
   const handleCommonItemsForm = (values) => {
     const commonItem = {
-      invno: rectifyInvNo(
-        values?.invoiceno,
-        values?.fyear?.value,
-        invoiceNoInitial
-      ),
-      fyear: values?.fyear?.value,
-      truck: values?.truck?.toUpperCase(),
-      date: getDate(values?.date),
+      invno: values?.invoiceno,
+      truck: values?.truck?.toUpperCase() || "",
+      date: values?.date,
       dispatch: values?.dispatch?.toUpperCase() || "",
+      rent: isRent,
     };
 
     setCommonItems(commonItem);
+
+    setSection(2);
   };
+
+  useEffect(() => {
+    if (commonItems && section === 1) {
+      setFormValuesCI();
+    }
+  }, [section]);
 
   return (
     <div>
@@ -46,6 +57,8 @@ const CommonItemsForm = ({
         onFinish={handleCommonItemsForm}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        values={null}
+        form={ciForm}
       >
         <Form.Item
           label="Invoice Number:"
@@ -57,7 +70,7 @@ const CommonItemsForm = ({
             },
           ]}
         >
-          <Input disabled={commonItems} />
+          <Input style={wd100} value={commonItems?.invno} />
         </Form.Item>
 
         <Form.Item
@@ -73,27 +86,10 @@ const CommonItemsForm = ({
           <DatePicker style={wd100} />
         </Form.Item>
 
-        <Form.Item
-          label="Financial Year:"
-          name="fyear"
-          rules={[
-            {
-              required: true,
-              message: "Select Year",
-            },
-          ]}
-        >
-          <Select
-            showSearch
-            labelInValue
-            placeholder="Select Financial Year"
-            optionFilterProp="label"
-            options={finacialYears}
-          />
-        </Form.Item>
-
-        <Form.Item>
-          <Checkbox onChange={handleRentCheck}>Rent</Checkbox>
+        <Form.Item label={null} name="rent">
+          <Checkbox checked={isRent} onChange={handleRentCheck}>
+            Rent
+          </Checkbox>
         </Form.Item>
 
         <Form.Item
@@ -114,7 +110,7 @@ const CommonItemsForm = ({
         </Form.Item>
 
         <Form.Item label={null}>
-          <Button disabled={commonItems} type="primary" htmlType="submit">
+          <Button disabled={section === 2} type="primary" htmlType="submit">
             Next
           </Button>
         </Form.Item>

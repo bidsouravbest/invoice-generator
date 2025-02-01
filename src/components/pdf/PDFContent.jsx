@@ -1,23 +1,38 @@
 import React, { useContext } from "react";
 import "../../assets/css/generatepdf.css";
-import { formatDocType, toINR, toWords } from "../../utils/utils";
+import {
+  formatDocType,
+  toINR,
+  toWords,
+  rectifyInvNo,
+  getDate,
+  getFinancialYear
+} from "../../utils/utils";
 import { ConfigContext } from "../../context/ConfigContext";
 
-const PDFContent = ({ company, commonItems, items }) => {
+const PDFContent = ({ company, commonItems, otherItems }) => {
   const config = useContext(ConfigContext);
 
   const sellerDetails = config?.SELLER_DETAILS;
   const docHeading = config?.docHeading;
   const docTypes = config?.docTypes;
+  const invoiceNoInitial = config?.invoiceNoInitial;
 
-  const gstMargin = items?.length > 5 ? "25px" : "60px";
+  const gstMargin = otherItems?.length > 5 ? "25px" : "60px";
+
+  const dateFormatted = getDate(commonItems?.date);
+
+  const invoiceNoFormatted = rectifyInvNo(
+    commonItems?.invno,
+    getFinancialYear(new Date(commonItems?.date)),
+    invoiceNoInitial
+  );
 
   return docTypes.map((docType) => {
     let amount = 0;
     let cgst = 0;
     let sgst = 0;
     let totalAmount = 0;
-
 
     return (
       <section className="main-container" id={"page-" + docType?.toLowerCase()}>
@@ -47,7 +62,10 @@ const PDFContent = ({ company, commonItems, items }) => {
             <div className="col-5 bdr-1">
               <div className="row gt-xy-0 bdr-btm-1">
                 <div className="col-3 txt-lbl pd-bt-10">Buyer's Name –</div>
-                <div className="col-9 txt-val txt-bold bdr-lft-1" style={{fontStretch: "ultra-expanded"}}>
+                <div
+                  className="col-9 txt-val txt-bold bdr-lft-1"
+                  style={{ fontStretch: "ultra-expanded" }}
+                >
                   {company?.label}
                 </div>
               </div>
@@ -105,7 +123,7 @@ const PDFContent = ({ company, commonItems, items }) => {
                     <div className="col-5 bdr-btm-1 pd-bt-10 fnt-13">
                       Invoice No.
                     </div>
-                    <div className="col-7 bdr-btm-1">{commonItems?.invno}</div>
+                    <div className="col-7 bdr-btm-1">{invoiceNoFormatted}</div>
                   </div>
                 </div>
 
@@ -114,7 +132,7 @@ const PDFContent = ({ company, commonItems, items }) => {
                     <div className="col-5 bdr-btm-1 pd-bt-10 fnt-13">
                       Dated:
                     </div>
-                    <div className="col-7 bdr-btm-1">{commonItems?.date}</div>
+                    <div className="col-7 bdr-btm-1">{dateFormatted}</div>
                   </div>
                 </div>
 
@@ -171,7 +189,7 @@ const PDFContent = ({ company, commonItems, items }) => {
 
             {/* Bill Items */}
             <div className="bill-col-items">
-              {items?.map((item, index) => {
+              {otherItems?.map((item, index) => {
                 const currentAmt =
                   item?.quantity !== 0
                     ? item?.quantity * item?.rate
@@ -181,7 +199,7 @@ const PDFContent = ({ company, commonItems, items }) => {
                 cgst += currentAmt * 0.09;
                 sgst += currentAmt * 0.09;
 
-                if (index === items?.length - 1) {
+                if (index === otherItems?.length - 1) {
                   totalAmount = amount + cgst + sgst;
                 }
 

@@ -1,34 +1,36 @@
 import React, { useContext, useEffect, useState } from "react";
 import GeneratePDF from "./GeneratePDF";
 import { Select } from "antd";
-import AddItemForm from "./forms/AddItemForm";
-import "../assets/css/home.css";
+import OtherItems from "./forms/OtherItems";
 import CommonItemsForm from "./forms/CommonItemsForm";
 import ItemsView from "./ItemsView";
 import { ConfigContext } from "../context/ConfigContext";
+import "../assets/css/home.css";
 
 const Home = () => {
   const config = useContext(ConfigContext);
 
   const buyerCompanies = config?.BUYER_COMPANIES;
 
+  const [section, setSection] = useState(1);
+
   const [company, setCompany] = useState(null);
 
-  const [items, setItems] = useState([]);
+  const [otherItems, setOtherItems] = useState([]);
   const [commonItems, setCommonItems] = useState(null);
 
   const [isRent, setIsRent] = useState(false);
 
-  const onChange = (value, option) => {
+  const handleBuyerSelect = (value, option) => {
     setCompany(option);
   };
 
   const handleDeleteItem = (item) => {
-    const updatedData = items?.filter(
+    const updatedData = otherItems?.filter(
       (datum) => datum?.uniqueID !== item?.uniqueID
     );
 
-    setItems(updatedData);
+    setOtherItems(updatedData);
   };
 
   return (
@@ -39,33 +41,38 @@ const Home = () => {
             showSearch
             labelInValue
             placeholder="Select Buyer Company"
-            // defaultValue={buyerCompanies ? buyerCompanies[0] : null}
             optionFilterProp="label"
-            onChange={onChange}
+            onChange={handleBuyerSelect}
             options={buyerCompanies}
             className="comp-select"
           />
         </section>
 
         <section className="forms">
-          <CommonItemsForm
-            commonItems={commonItems}
-            setCommonItems={setCommonItems}
-            isRent={isRent}
-            setIsRent={setIsRent}
-          />
+          {company && section === 1 && (
+            <CommonItemsForm
+              commonItems={commonItems}
+              setCommonItems={setCommonItems}
+              isRent={isRent}
+              setIsRent={setIsRent}
+              section={section}
+              setSection={setSection}
+            />
+          )}
 
-          {items?.length > 0 && (
+          {otherItems?.length > 0 && (
             <div className="item-det">
-              <ItemsView items={items} handleDeleteItem={handleDeleteItem} />
+              <ItemsView otherItems={otherItems} handleDeleteItem={handleDeleteItem} />
             </div>
           )}
 
-          {commonItems && (
-            <AddItemForm
-              items={items}
-              setItems={setItems}
+          {section === 2 && (
+            <OtherItems
+              otherItems={otherItems}
+              setOtherItems={setOtherItems}
               isRent={isRent}
+              setSection={setSection}
+              section={section}
             />
           )}
         </section>
@@ -74,7 +81,7 @@ const Home = () => {
       {commonItems && (
         <GeneratePDF
           commonItems={commonItems}
-          items={items}
+          otherItems={otherItems}
           company={company}
         />
       )}

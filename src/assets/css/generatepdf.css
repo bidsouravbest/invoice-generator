@@ -213,10 +213,23 @@
 .gen-btn button {
   width: 90%;
   margin: 0 auto;
-  display: block;
   text-align: center;
-  background-color: blueviolet;
+  background-color: rgb(51, 14, 161);
   color: #fff;
-  padding: 20px unset;
+  padding: 20px;
   border-radius: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  border: 1px solid black;
 }

@@ -1,6 +1,7 @@
 {
   "docHeading": "Invoice",
-
+  "wd100": { "width": "100%" },
+  
   "SELLER_DETAILS": {
     "label": "ISKCON   CHEMICALS",
     "value": "Iskcon_Chemicals",
@@ -38,9 +39,5 @@
 
   "invoiceNoInitial": "IC/",
   "rentHSN": "9972",
-  "rentPer": "month",
-  "finacialYears": [
-    { "label": "2024-25", "value": "24-25" },
-    { "label": "2025-26", "value": "25-26" }
-  ]
+  "rentPer": "month"
 }

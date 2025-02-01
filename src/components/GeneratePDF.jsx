@@ -4,7 +4,7 @@ import "../assets/css/generatepdf.css";
 import { Button } from "antd";
 import PDFContent from "./pdf/PDFContent";
 
-const GeneratePDF = ({ commonItems, items, company }) => {
+const GeneratePDF = ({ commonItems, otherItems, company }) => {
   const pdfRef = useRef();
 
   const generatePDF = () => {
@@ -30,7 +30,7 @@ const GeneratePDF = ({ commonItems, items, company }) => {
   return (
     <div style={{ overflowX: "scroll" }}>
       <div className="gen-btn">
-        <Button disabled={!items?.length > 0} onClick={generatePDF}>
+        <Button disabled={!otherItems?.length > 0} onClick={generatePDF}>
           Generate PDF
         </Button>
       </div>
@@ -39,7 +39,7 @@ const GeneratePDF = ({ commonItems, items, company }) => {
         <PDFContent
           company={company}
           commonItems={commonItems}
-          items={items}
+          otherItems={otherItems}
         />
       </article>
     </div>
