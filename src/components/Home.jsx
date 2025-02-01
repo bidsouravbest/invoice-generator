@@ -60,12 +60,6 @@ const Home = () => {
             />
           )}
 
-          {otherItems?.length > 0 && (
-            <div className="item-det">
-              <ItemsView otherItems={otherItems} handleDeleteItem={handleDeleteItem} />
-            </div>
-          )}
-
           {section === 2 && (
             <OtherItems
               otherItems={otherItems}
@@ -74,6 +68,15 @@ const Home = () => {
               setSection={setSection}
               section={section}
             />
+          )}
+
+          {otherItems?.length > 0 && (
+            <div className="item-det">
+              <ItemsView
+                otherItems={otherItems}
+                handleDeleteItem={handleDeleteItem}
+              />
+            </div>
           )}
         </section>
       </div>
